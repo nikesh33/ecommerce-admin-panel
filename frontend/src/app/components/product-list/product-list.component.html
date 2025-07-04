@@ -1,0 +1,103 @@
+<div class="product-list-container">
+  <div class="header">
+    <h2>{{ showDeleted ? "Deleted Products" : "Product Management" }}</h2>
+    <div class="header-actions">
+      <button class="btn btn-info" (click)="toggleView()">
+        {{ showDeleted ? "Active Products" : "Deleted Products" }}
+      </button>
+      <a *ngIf="!showDeleted" class="btn btn-primary" routerLink="/products/new">Add Product</a>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+  <div *ngIf="loading" class="loading">Loading products...</div>
+
+  <div class="products-grid" *ngIf="!loading">
+    <!-- Active Products -->
+    <ng-container *ngIf="!showDeleted">
+      <div *ngIf="products.length === 0" class="empty-state">
+        <h3>No products found</h3>
+        <p>Start by adding your first product.</p>
+        <a class="btn btn-primary" routerLink="/products/new">Add Product</a>
+      </div>
+      <div class="product-card" *ngFor="let product of paginatedProducts">
+        <div class="product-images">
+          <img *ngIf="product.images?.length > 0"
+               [src]="getImageUrl(product.images[0])"
+               [alt]="product.name"
+               class="product-image" />
+          <div *ngIf="!product.images?.length" class="no-image">No Image</div>
+          <div *ngIf="product.images?.length > 1" class="image-count">
+            +{{ product.images.length - 1 }} more
+          </div>
+        </div>
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="sku">SKU: {{ product.sku }}</p>
+          <p class="price">₹{{ product.price | number : "1.2-2" }}</p>
+          <div class="product-actions">
+            <a [routerLink]="['/products', product.id]" class="btn btn-sm btn-outline-primary">View</a>
+            <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <button class="btn btn-sm btn-outline-danger"
+                    (click)="openConfirmation(product.id, 'delete')">Delete</button>
+          </div>
+        </div>
+      </div>
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="changePage($event)">
+      </app-pagination>
+    </ng-container>
+
+    <!-- Deleted Products -->
+    <ng-container *ngIf="showDeleted">
+      <div *ngIf="deletedProducts.length === 0" class="empty-state">
+        <h3>No deleted products</h3>
+        <p>All products are currently active.</p>
+      </div>
+      <div class="product-card deleted" *ngFor="let product of paginatedDeletedProducts">
+        <div class="product-images">
+          <img *ngIf="product.images?.length > 0"
+               [src]="getImageUrl(product.images[0])"
+               [alt]="product.name"
+               class="product-image" />
+          <div *ngIf="!product.images?.length" class="no-image">No Image</div>
+          <div *ngIf="product.images?.length > 1" class="image-count">
+            +{{ product.images.length - 1 }} more
+          </div>
+        </div>
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="sku">SKU: {{ product.sku }}</p>
+          <p class="price">₹{{ product.price | number : "1.2-2" }}</p>
+          <p class="deleted-date">Deleted: {{ product.updatedAt | date : "medium" }}</p>
+          <div class="product-actions">
+            <button class="btn btn-sm btn-success"
+                    (click)="openConfirmation(product.id, 'restore')">Restore</button>
+            <button class="btn btn-sm btn-danger"
+                    (click)="openConfirmation(product.id, 'deleteForever')">Delete Forever</button>
+          </div>
+        </div>
+      </div>
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="changePage($event)">
+      </app-pagination>
+    </ng-container>
+  </div>
+</div>
+
+<!-- 🔽 Confirmation Modal -->
+<div class="confirmation-modal" *ngIf="confirmation.show">
+  <div class="modal-backdrop" (click)="handleCancel()"></div>
+  <div class="modal-content">
+    <h3>{{ confirmation.action === 'deleteForever' ? '⚠️ Warning' : 'Confirm Action' }}</h3>
+    <p>{{ confirmation.message }}</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" (click)="handleCancel()">Cancel</button>
+      <button class="btn btn-danger" (click)="handleConfirm()">Yes</button>
+    </div>
+  </div>
+</div>

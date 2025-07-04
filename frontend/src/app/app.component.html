@@ -1,0 +1,20 @@
+<div class="app-container">
+  <nav class="navbar">
+    <div class="nav-content">
+      <a routerLink="/products" class="nav-brand">
+        <h1>E-Commerce Admin Panel</h1>
+      </a>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle">Admin ▾</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" (click)="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
