@@ -72,9 +72,14 @@ export class ProductController {
       });
       if (!product) return res.status(404).json({ error: "Product not found" });
 
-      const oldList: string[] = existingImages
-        ? JSON.parse(existingImages)
-        : [];
+      let oldList: string[] = [];
+      try {
+        oldList = existingImages ? JSON.parse(existingImages) : [];
+      } catch (parseError) {
+        console.error("Invalid existingImages format:", existingImages);
+        return res.status(400).json({ error: "Invalid existingImages format" });
+      }
+
       const newUrls = files?.map((f) => (f as any).path as string) || [];
 
       product.images = [...oldList, ...newUrls];
@@ -86,7 +91,7 @@ export class ProductController {
       const updated = await this.productRepository.save(product);
       res.json(updated);
     } catch (err: any) {
-      console.error(err);
+      console.error("[Product Update Error]", err);
       if (err.code === "23505") {
         res.status(400).json({ error: "SKU already exists" });
       } else {
