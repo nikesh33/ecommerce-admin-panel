@@ -10,8 +10,9 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
   // private apiUrl = 'http://localhost:3000/api/products';
-  // private apiUrl = `${environment.apiUrl}/products`;
-  private apiUrl = 'https://ecommerce-admin-panel-pcgk.onrender.com/api/products'; 
+  // private apiUrl = 'https://ecommerce-admin-panel-pcgk.onrender.com/api/products'; 
+  private apiUrl = `${environment.apiUrl}/products`;
+
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {

@@ -10,57 +10,78 @@
 
   <div class="product-detail" *ngIf="product && !loading">
     <div class="product-images">
-      <div class="main-image" *ngIf="product.images && product.images.length > 0">
-        <img 
-          [src]="getImageUrl(product.images[currentImageIndex])" 
+      <div
+        class="main-image"
+        *ngIf="product.images && product.images.length > 0"
+      >
+        <img
+          [src]="getImageUrl(product.images[currentImageIndex])"
           [alt]="product.name"
           class="main-product-image"
-        >
-        <button 
+        />
+        <button
           *ngIf="product.images.length > 1"
-          class="nav-btn prev-btn" 
+          class="nav-btn prev-btn"
           (click)="prevImage()"
         >
           ‹
         </button>
-        <button 
+        <button
           *ngIf="product.images.length > 1"
-          class="nav-btn next-btn" 
+          class="nav-btn next-btn"
           (click)="nextImage()"
         >
           ›
         </button>
       </div>
 
-      <div class="no-image" *ngIf="!product.images || product.images.length === 0">
+      <div
+        class="no-image"
+        *ngIf="!product.images || product.images.length === 0"
+      >
         <div class="no-image-placeholder">No Image Available</div>
       </div>
 
-      <div class="thumbnail-images" *ngIf="product.images && product.images.length > 1">
-        <img 
+      <div
+        class="thumbnail-images"
+        *ngIf="product.images && product.images.length > 1"
+      >
+        <img
           *ngFor="let image of product.images; let i = index"
-          [src]="getImageUrl(image)" 
+          [src]="getImageUrl(image)"
           [alt]="product.name + ' - Image ' + (i + 1)"
           class="thumbnail-image"
           [class.active]="i === currentImageIndex"
           (click)="selectImage(i)"
-        >
+          (touchstart)="selectImage(i)"
+        />
       </div>
     </div>
 
     <div class="product-info">
       <h1>{{ product.name }}</h1>
       <p class="sku">SKU: {{ product.sku }}</p>
-      <p class="price">₹{{ product.price | number:'1.2-2' }}</p>
-      
+      <p class="price">₹{{ product.price | number : "1.2-2" }}</p>
+
       <div class="product-meta">
-        <p><strong>Created:</strong> {{ product.createdAt | date:'medium' }}</p>
-        <p><strong>Last Updated:</strong> {{ product.updatedAt | date:'medium' }}</p>
+        <p>
+          <strong>Created:</strong> {{ product.createdAt | date : "medium" }}
+        </p>
+        <p>
+          <strong>Last Updated:</strong>
+          {{ product.updatedAt | date : "medium" }}
+        </p>
       </div>
 
       <div class="product-actions">
-        <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-primary">Edit Product</a>
-        <button class="btn btn-danger" (click)="deleteProduct()">Delete Product</button>
+        <a
+          [routerLink]="['/products', product.id, 'edit']"
+          class="btn btn-primary"
+          >Edit Product</a
+        >
+        <button class="btn btn-danger" (click)="deleteProduct()">
+          Delete Product
+        </button>
       </div>
     </div>
   </div>

@@ -220,6 +220,18 @@
   color: #fff;
 }
 
+.main-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.main-product-image:hover {
+  transform: scale(1.02);
+}
+
 @media (max-width: 768px) {
   .product-detail {
     grid-template-columns: 1fr;

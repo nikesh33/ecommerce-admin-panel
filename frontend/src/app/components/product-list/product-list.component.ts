@@ -140,7 +140,13 @@ export class ProductListComponent implements OnInit {
     this.confirmation.show = false;
   }
 
-  getImageUrl(imagePath: string): string {
+getImageUrl(imagePath: string): string {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http')) {
     return imagePath;
   }
+
+  //relative path served by your backend
+  return `https://ecommerce-admin-panel-pcgk.onrender.com${imagePath}`;
+}
 }
