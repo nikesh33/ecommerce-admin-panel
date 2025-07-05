@@ -137,7 +137,7 @@ ecommerce-admin-panel/
 ## 🧑‍💻 Developer Info
 
 **Name:** Nikesh Vishwakarma  
-**Email:** nikeshvishwakarma777@gmail.com  
+**Email:** nikeshvishwakarma33@gmail.com  
 **GitHub:** [https://github.com/nikesh33/ecommerce-admin-panel](https://github.com/nikesh33/ecommerce-admin-panel)
 
 ---
