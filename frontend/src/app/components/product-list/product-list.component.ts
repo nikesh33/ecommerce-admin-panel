@@ -5,7 +5,7 @@ import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
     show: false,
     productId: 0 || null,
     action: '',
-    message: ''
+    message: '',
   };
 
   constructor(private productService: ProductService) {}
@@ -51,7 +51,7 @@ export class ProductListComponent implements OnInit {
       error: () => {
         this.error = 'Failed to load products';
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -65,7 +65,7 @@ export class ProductListComponent implements OnInit {
       error: () => {
         this.error = 'Failed to load deleted products';
         this.loading = false;
-      }
+      },
     });
   }
 
@@ -84,7 +84,9 @@ export class ProductListComponent implements OnInit {
   }
 
   get totalPages(): number {
-    const total = this.showDeleted ? this.deletedProducts.length : this.products.length;
+    const total = this.showDeleted
+      ? this.deletedProducts.length
+      : this.products.length;
     return Math.ceil(total / this.itemsPerPage);
   }
 
@@ -99,7 +101,8 @@ export class ProductListComponent implements OnInit {
         message = 'Are you sure you want to restore this product?';
         break;
       case 'deleteForever':
-        message = 'Are you sure you want to permanently delete this product? This action cannot be undone!';
+        message =
+          'Are you sure you want to permanently delete this product? This action cannot be undone!';
         break;
     }
 
@@ -107,7 +110,7 @@ export class ProductListComponent implements OnInit {
       show: true,
       productId: id,
       action,
-      message
+      message,
     };
   }
 
@@ -118,17 +121,17 @@ export class ProductListComponent implements OnInit {
     if (action === 'delete') {
       this.productService.deleteProduct(productId).subscribe({
         next: () => this.loadProducts(),
-        error: () => this.error = 'Failed to delete product'
+        error: () => (this.error = 'Failed to delete product'),
       });
     } else if (action === 'restore') {
       this.productService.restoreProduct(productId).subscribe({
         next: () => this.loadDeletedProducts(),
-        error: () => this.error = 'Failed to restore product'
+        error: () => (this.error = 'Failed to restore product'),
       });
     } else if (action === 'deleteForever') {
       this.productService.permanentlyDeleteProduct(productId).subscribe({
         next: () => this.loadDeletedProducts(),
-        error: () => this.error = 'Failed to permanently delete product'
+        error: () => (this.error = 'Failed to permanently delete product'),
       });
     }
   }
@@ -138,6 +141,6 @@ export class ProductListComponent implements OnInit {
   }
 
   getImageUrl(imagePath: string): string {
-    return imagePath.startsWith('/') ? `http://localhost:3000${imagePath}` : imagePath;
+    return imagePath;
   }
 }
