@@ -1,7 +1,5 @@
 # 🛒 E-commerce Admin Panel - Product Module
 
-**Task Submission for Node.js Developer Role at INOVANT SOLUTIONS**
-
 This is a full-featured product management module built using **Angular v9**, **Node.js with TypeScript**, **PostgreSQL**, and **TypeORM**, with support for **multiple image uploads via Cloudinary**. The panel allows adding, editing, deleting (soft delete), restoring, and listing products with real-time image previews.
 
 ---
@@ -72,8 +70,6 @@ CLOUDINARY_API_SECRET=your_api_secret
 npm run dev
 ```
 
-The backend will run at: `http://localhost:5000`
-
 ---
 
 ### 💻 Frontend Setup (`/frontend`)
@@ -95,7 +91,7 @@ npm install --legacy-peer-deps
 ```ts
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:5000/api'
+  apiBaseUrl: 'http://localhost:5000/api' (Example)
 };
 ```
 
@@ -105,37 +101,16 @@ export const environment = {
 ng serve
 ```
 
-The frontend will run at: `http://localhost:4200`
-
----
-
-## 📁 Project Structure
-
-```
-ecommerce-admin-panel/
-├── frontend/               # Angular v9 App
-│   └── src/app/
-│       ├── components/
-│       ├── services/
-│       └── pages/
-├── backend/                # Node.js + TypeScript API
-│   ├── controllers/
-│   ├── entities/
-│   ├── services/
-│   └── routes/
-└── README.md               # This file
-```
-
 ---
 
 ## 🧑‍💻 Developer Info
 
 **Name:** Nikesh Vishwakarma  
-**Email:** nikeshvishwakarma33@gmail.com  
+**Email:** nikeshvishwakarma33@gmail.com
+**Portfolio:** [https://portfolio-nikeshvishwakarma.vercel.app/]  
+**Linkedin:** [https://www.linkedin.com/in/nikeshvish/] 
 **GitHub:** [https://github.com/nikesh33/ecommerce-admin-panel](https://github.com/nikesh33/ecommerce-admin-panel)
 
 ---
 
 ✅ Task requirements are implemented exactly as per instructions using old versions (Angular v9, legacy peer deps, TypeORM, PostgreSQL, etc.).
-
-**Built with ❤️ for INOVANT SOLUTIONS**
