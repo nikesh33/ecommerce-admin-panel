@@ -128,12 +128,6 @@ ecommerce-admin-panel/
 
 ---
 
-## 📸 Screenshots
-
-> Add screenshots in the `screenshots/` folder if needed
-
----
-
 ## 🧑‍💻 Developer Info
 
 **Name:** Nikesh Vishwakarma  
